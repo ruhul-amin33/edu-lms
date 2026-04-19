@@ -1,0 +1,41 @@
+<%- include('../partials/header') %>
+<div class="container">
+  <h2 style="margin-bottom:25px;">👋 স্বাগতম, <%= user.name %>!</h2>
+  <h3 style="margin-bottom:15px;">📝 Available Exams</h3>
+  <div class="grid">
+    <% if(exams.length === 0) { %>
+      <p>এখনো কোনো exam নেই।</p>
+    <% } %>
+    <% exams.forEach(exam => { %>
+      <div class="card">
+        <h3><%= exam.title %></h3>
+        <p>Course: <%= exam.course_title || 'N/A' %></p>
+        <p>⏱️ সময়: <%= exam.time_limit %> মিনিট</p>
+        <a href="/student/exam/<%= exam.id %>" class="btn btn-primary" style="margin-top:10px;">
+          Exam দিন →
+        </a>
+        <a href="/student/leaderboard/<%= exam.id %>" class="btn btn-warning btn-sm" style="margin-top:5px;">
+          🏆 Leaderboard
+        </a>
+      </div>
+    <% }) %>
+  </div>
+
+  <h3 style="margin:30px 0 15px;">📊 আমার Results</h3>
+  <% if(results.length === 0) { %>
+    <p>এখনো কোনো exam দেওনি।</p>
+  <% } else { %>
+  <table>
+    <tr><th>Exam</th><th>Score</th><th>Percentage</th><th>তারিখ</th></tr>
+    <% results.forEach(r => { %>
+    <tr>
+      <td><%= r.exam_title %></td>
+      <td><%= r.score %>/<%= r.total %></td>
+      <td><%= r.percentage %>%</td>
+      <td><%= new Date(r.created_at).toLocaleDateString('bn-BD') %></td>
+    </tr>
+    <% }) %>
+  </table>
+  <% } %>
+</div>
+<%- include('../partials/footer') %>

@@ -3,7 +3,7 @@ const router = express.Router();
 const student = require('../controllers/studentController');
 
 const isStudent = (req, res, next) => {
-  if (req.session.user?.role === 'student') return next();
+  if (req.session.user) return next();
   res.redirect('/login');
 };
 

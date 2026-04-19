@@ -1,0 +1,29 @@
+<%- include('partials/header') %>
+<div class="hero">
+  <h1>🎓 EduLMS তে স্বাগতম</h1>
+  <p>বাংলাদেশের সেরা অনলাইন শিক্ষা প্ল্যাটফর্ম</p>
+  <% if(!user) { %>
+    <a href="/register" class="btn btn-primary">শুরু করুন →</a>
+  <% } %>
+</div>
+<div class="container">
+  <h2 style="margin-bottom:20px;">📚 সকল কোর্স</h2>
+  <div class="grid">
+    <% if(courses.length === 0) { %>
+      <p>এখনো কোনো কোর্স নেই।</p>
+    <% } %>
+    <% courses.forEach(course => { %>
+      <div class="course-card">
+        <div class="course-card-body">
+          <span class="badge badge-<%= course.type %>"><%= course.type === 'free' ? 'ফ্রি' : 'পেইড' %></span>
+          <h3><%= course.title %></h3>
+          <p><%= course.description %></p>
+          <% if(course.type === 'paid') { %>
+            <p><strong>মূল্য: ৳<%= course.price %></strong></p>
+          <% } %>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+<%- include('partials/footer') %>

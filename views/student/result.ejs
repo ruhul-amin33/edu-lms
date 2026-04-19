@@ -1,0 +1,27 @@
+<%- include('../partials/header') %>
+<div class="container">
+  <div class="card result-card">
+    <h2>📊 Exam Result</h2>
+    <h3 style="color:#666;margin:10px 0;"><%= result.exam_title %></h3>
+    <div class="score"><%= result.score %>/<%= result.total %></div>
+    <div class="grade">
+      <% if(result.percentage >= 80) { %>
+        🌟 অসাধারণ! A+
+      <% } else if(result.percentage >= 60) { %>
+        ✅ ভালো! B
+      <% } else if(result.percentage >= 40) { %>
+        ⚠️ আরো চেষ্টা করো! C
+      <% } else { %>
+        ❌ আরো পড়াশোনা করো
+      <% } %>
+    </div>
+    <h2 style="color:#e94560;"><%= result.percentage %>%</h2>
+    <div style="margin-top:20px;">
+      <a href="/student/dashboard" class="btn btn-primary">Dashboard এ যাও</a>
+      <a href="/student/leaderboard/<%= result.exam_id %>" class="btn btn-warning" style="margin-left:10px;">
+        🏆 Leaderboard দেখো
+      </a>
+    </div>
+  </div>
+</div>
+<%- include('../partials/footer') %>

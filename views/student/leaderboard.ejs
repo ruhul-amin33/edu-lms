@@ -1,0 +1,23 @@
+<%- include('../partials/header') %>
+<div class="container">
+  <div class="card">
+    <h2>🏆 Leaderboard — <%= exam.title %></h2>
+    <div style="margin-top:20px;">
+      <% rows.forEach((r, i) => { %>
+      <div class="leaderboard-item">
+        <div class="rank rank-<%= i+1 %>"><%= i+1 %></div>
+        <div style="flex:1">
+          <strong><%= r.name %></strong>
+          <div style="color:#666;font-size:0.9rem;"><%= r.score %>/<%= r.total %> প্রশ্ন সঠিক</div>
+        </div>
+        <div style="font-size:1.3rem;font-weight:bold;color:#e94560;"><%= r.percentage %>%</div>
+      </div>
+      <% }) %>
+      <% if(rows.length === 0) { %>
+        <p style="text-align:center;color:#666;">এখনো কেউ exam দেয়নি।</p>
+      <% } %>
+    </div>
+    <a href="/student/dashboard" class="btn btn-primary" style="margin-top:20px;">Dashboard এ যাও</a>
+  </div>
+</div>
+<%- include('../partials/footer') %>

@@ -1,0 +1,26 @@
+<%- include('../partials/header') %>
+<div class="container">
+  <h2>🚨 Report Management</h2>
+  <div class="card" style="margin-top:20px;">
+    <table>
+      <tr><th>Student</th><th>প্রশ্ন</th><th>কারণ</th><th>Status</th><th>Action</th></tr>
+      <% reports.forEach(r => { %>
+      <tr>
+        <td><%= r.student_name %></td>
+        <td><%= r.question_text.substring(0,50) %>...</td>
+        <td><%= r.reason %></td>
+        <td><%= r.status %></td>
+        <td>
+          <form method="POST" action="/admin/reports/fix/<%= r.id %>" style="display:inline">
+            <button class="btn btn-success btn-sm">Fixed</button>
+          </form>
+          <form method="POST" action="/admin/reports/delete/<%= r.id %>" style="display:inline">
+            <button class="btn btn-danger btn-sm">Delete</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </table>
+  </div>
+</div>
+<%- include('../partials/footer') %>

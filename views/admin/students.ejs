@@ -1,0 +1,28 @@
+<%- include('../partials/header') %>
+<div class="container">
+  <h2>👥 Student Management</h2>
+  <div class="card" style="margin-top:20px;">
+    <table>
+      <tr><th>ID</th><th>নাম</th><th>Email</th><th>Status</th><th>যোগদান</th><th>Action</th></tr>
+      <% students.forEach(s => { %>
+      <tr>
+        <td><%= s.id %></td>
+        <td><%= s.name %></td>
+        <td><%= s.email %></td>
+        <td><span class="badge badge-<%= s.is_blocked ? 'blocked' : 'active' %>">
+          <%= s.is_blocked ? 'Blocked' : 'Active' %>
+        </span></td>
+        <td><%= new Date(s.created_at).toLocaleDateString('bn-BD') %></td>
+        <td>
+          <form method="POST" action="/admin/students/block/<%= s.id %>" style="display:inline">
+            <button class="btn btn-sm <%= s.is_blocked ? 'btn-success' : 'btn-warning' %>">
+              <%= s.is_blocked ? 'Unblock' : 'Block' %>
+            </button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </table>
+  </div>
+</div>
+<%- include('../partials/footer') %>

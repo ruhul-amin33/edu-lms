@@ -1,0 +1,40 @@
+<%- include('../partials/header') %>
+<div class="container">
+  <h2 style="margin-bottom:25px;">⚙️ Admin Dashboard</h2>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h3><%= total_students %></h3>
+      <p>👨‍🎓 মোট Students</p>
+    </div>
+    <div class="stat-card">
+      <h3><%= total_courses %></h3>
+      <p>📚 মোট Courses</p>
+    </div>
+    <div class="stat-card">
+      <h3><%= total_exams %></h3>
+      <p>📝 মোট Exams</p>
+    </div>
+    <div class="stat-card">
+      <h3><%= pending_reports %></h3>
+      <p>🚨 Pending Reports</p>
+    </div>
+  </div>
+  <div class="grid">
+    <a href="/admin/courses" class="card" style="text-decoration:none;text-align:center;">
+      <h3>📚 Course Management</h3>
+    </a>
+    <a href="/admin/exams" class="card" style="text-decoration:none;text-align:center;">
+      <h3>📝 Exam Management</h3>
+    </a>
+    <a href="/admin/questions" class="card" style="text-decoration:none;text-align:center;">
+      <h3>❓ Question Management</h3>
+    </a>
+    <a href="/admin/students" class="card" style="text-decoration:none;text-align:center;">
+      <h3>👥 Student Management</h3>
+    </a>
+    <a href="/admin/reports" class="card" style="text-decoration:none;text-align:center;">
+      <h3>🚨 Report Management</h3>
+    </a>
+  </div>
+</div>
+<%- include('../partials/footer') %>
