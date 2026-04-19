@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= exam.title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="exam-container">
+    <h2><%= exam.title %></h2>
+    <div id="timer" style="font-size:1.5rem;color:red;font-weight:bold;">
+      ⏱️ <span id="countdown"></span>
+    </div>
+
+    <form id="examForm" action="/student/exam/<%= exam.id %>/submit" method="POST">
+      <% questions.forEach((q, i) => { %>
+        <div class="question-card">
+          <p><strong><%= i+1 %>. <%= q.question_text %></strong></p>
+          <label><input type="radio" name="q_<%= q.id %>" value="A" required> A. <%= q.option_a %></label><br>
+          <label><input type="radio" name="q_<%= q.id %>" value="B"> B. <%= q.option_b %></label><br>
+          <label><input type="radio" name="q_<%= q.id %>" value="C"> C. <%= q.option_c %></label><br>
+          <label><input type="radio" name="q_<%= q.id %>" value="D"> D. <%= q.option_d %></label>
+          <button type="button" onclick="reportQ(<%= q.id %>)" class="report-btn">⚠️ Report</button>
+        </div>
+      <% }) %>
+      <button type="submit" class="btn-submit">Submit Exam</button>
+    </form>
+  </div>
+
+  <script>
+    // Timer
+    let minutes = <%= exam.time_limit %>;
+    let seconds = 0;
+    let total = minutes * 60;
+
+    const display = document.getElementById('countdown');
+    const timer = setInterval(() => {
+      total--;
+      let m = Math.floor(total / 60);
+      let s = total % 60;
+      display.textContent = `${m}:${s < 10 ? '0'+s : s}`;
+      if (total <= 0) {
+        clearInterval(timer);
+        document.getElementById('examForm').submit();
+      }
+    }, 1000);
+
+    // Report question
+    function reportQ(qid) {
+      const reason = prompt('কি সমস্যা আছে এই প্রশ্নে?');
+      if (!reason) return;
+      fetch('/student/report', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ question_id: qid, reason })
+      }).then(() => alert('Report পাঠানো হয়েছে!'));
+    }
+  </script>
+</body>
+</html>
